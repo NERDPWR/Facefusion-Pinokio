@@ -2,19 +2,7 @@ const path = require("path")
 
 module.exports = {
   daemon: true,
-  cmd: {
-    Default: "python facefusion.py run",
-    "Default+Jobs": "python facefusion.py run --ui-layouts default jobs",
-    Benchmark: "python facefusion.py run --ui-layouts benchmark",
-    Webcam: "python facefusion.py run --ui-layouts webcam"
-  },
   run: [
-    {
-      method: "local.set",
-      params: {
-        mode: "{{args.mode || 'Default'}}"
-      }
-    },
     {
       method: "shell.run",
       params: {
@@ -22,7 +10,7 @@ module.exports = {
         conda: {
           path: path.resolve(__dirname, ".env")
         },
-        message: "{{self.cmd[local.mode]}}",
+        message: "python facefusion.py run --open-browser",
         on: [{
           event: "/(http:\\/\\/[0-9.:]+)/",
           done: true
